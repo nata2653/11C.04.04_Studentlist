@@ -1,0 +1,64 @@
+.studentlist {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  cursor: pointer;
+}
+.headline {
+  text-align: center;
+}
+
+.student {
+  box-shadow: 5px 2px 4px 1px rgba(128, 128, 128, 0.47);
+  margin: 20px;
+  text-align: center;
+}
+
+/* #popup {
+    background-color: rgba(242, 242, 242, 0.96);
+    width: 100vw;
+    height: 90vh;
+    margin: 0 auto;
+    padding: 10px;
+    top: 2vw;
+    position: fixed;
+  } */
+
+.hide {
+  display: none;
+}
+
+.modal h2 {
+  color: whitesmoke;
+}
+
+.modal p {
+  color: whitesmoke;
+}
+
+.modal {
+  position: fixed;
+  width: 60vw;
+  height: 50vh;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  border-radius: 2%;
+}
+
+img {
+  height: 200px;
+}
+
+.gryffindor {
+  background-image: linear-gradient(to right, #1c1c1d, #740001, #ae0001);
+}
+.ravenclaw {
+  background-image: linear-gradient(to right, #1c1c1d, #0e1a40, #5d5d5d);
+}
+.slytherin {
+  background-image: linear-gradient(to right, #1c1c1d, #1a472a, #2a623d);
+}
+.hufflepuff {
+  background-image: linear-gradient(to right, #1c1c1d, #ecb939, #f0c75e);
+}
