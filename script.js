@@ -1,14 +1,16 @@
 "use strict";
-
 document.addEventListener("DOMContentLoaded", start);
 
 function start() {
-  // Empty array for all students
   let students = [];
 
   let allStudents = [];
 
   let house;
+
+  let currentStudents;
+
+  let sort;
 
   const Student = {
     firstname: "",
@@ -18,38 +20,31 @@ function start() {
     house: "",
     imagelink: ""
   };
-
-  let currentStudents;
-
-  let sort;
-
-  // Create addEventListener to "sort by"-dropdown - calling function to sort json file
+  //Sort-by dropdown
   document.querySelectorAll("#sort-by").forEach(option => {
     option.addEventListener("change", sortBy);
   });
 
-  // Create addEventListener to "filter by"-dropdown - calling function to filter json file
+  //Filter-by dropdown
   document.querySelectorAll("#filter-by").forEach(option => {
     option.addEventListener("change", setFilter);
   });
 
   async function getJson() {
-    // Fetch json data
+    // Fetch JSON-data
     let jsonData = await fetch(
       "http://petlatkea.dk/2019/hogwartsdata/students.json"
     );
 
-    // Convert to json file
+    // Convert to JSON file
     students = await jsonData.json();
 
-    // Call Function to show student list
-
+    //Show student list
     newArray(students);
   }
-
-  // Call getJson function to fetch json data
+  // Call function to fetch JSON-data
   getJson();
-
+  //Fix array - make objects and split up data to show
   function newArray(students) {
     students.forEach(jsonObject => {
       const student = Object.create(Student);
@@ -112,10 +107,87 @@ function start() {
       allStudents.push(student);
     });
 
+    //Call filtering-function
     currentStudents = filtering("All");
     showStudents();
   }
 
+  function showStudents() {
+    console.log(currentStudents);
+    // Empty .studentlist
+    document.querySelector(".studentlist").innerHTML = "";
+    // Destination variable
+    let dest = document.querySelector(".studentlist");
+    // Template variable
+    let temp = document.querySelector("template");
+
+    // Create forEach function for each student
+    currentStudents.forEach(student => {
+      let klon = temp.cloneNode(!0).content;
+
+      if (student[5] == "lastname") {
+        if (sort == "Lastname") {
+          klon.querySelector(".student h2").innerHTML =
+            student.lastname + " " + student.firstname;
+        } else {
+          //Fill HTML-class with data
+          klon.querySelector(".student h2").innerHTML =
+            student.firstname + " " + student.lastname;
+        }
+      } else {
+        if (sort == "Lastname") {
+          klon.querySelector(".student h2").innerHTML =
+            student.lastname + " " + student.firstname + student.middlename;
+        } else {
+          klon.querySelector(".student h2").innerHTML =
+            student.firstname +
+            " " +
+            student.middlename +
+            " " +
+            student.lastname;
+        }
+      }
+      //Fill house with data
+      klon.querySelector(".student h3").innerHTML = student.house;
+
+      klon
+        .querySelector(".student")
+        .setAttribute("house", student.house.toLowerCase());
+
+      dest.appendChild(klon);
+    });
+  }
+
+  function sortBy() {
+    console.log("Sort json");
+    // Change filter
+    sort = this.value;
+    console.log(sort);
+    // If statement to sort by choice
+    if (sort == "Firstname") {
+      console.log(sort);
+      // Function to sort by firstname
+      currentStudents.sort(function(a, b) {
+        return a.firstname.localeCompare(b.firstname);
+      });
+    } else if (sort == "Lastname") {
+      console.log(sort);
+      currentStudents.sort(function(a, b) {
+        return a.lastname.localeCompare(b.lastname);
+      });
+    } else if (sort == "House") {
+      console.log(sort);
+      currentStudents.sort(function(a, b) {
+        return a.house.localeCompare(b.house);
+      });
+      // Reset sort
+    } else if (sort == "none") {
+      // Call start function
+      start();
+    }
+    // Call function to show studentlist again
+    showStudents();
+  }
   function setFilter() {
     house = this.value;
     currentStudents = filtering(house);
@@ -135,96 +207,5 @@ function start() {
     }
     console.log(allStudents);
     return list;
-  }
-
-  function showStudents() {
-    console.log(currentStudents);
-    // Empty .studentlist
-    document.querySelector(".studentlist").innerHTML = "";
-    // Create destination variable
-    let dest = document.querySelector(".studentlist");
-    // Create template variable
-    let temp = document.querySelector("template");
-
-    // Create forEach function for each student
-    currentStudents.forEach(student => {
-      // // Create clone variable
-      let klon = temp.cloneNode(!0).content;
-
-      if (student[5] == "lastname") {
-        if (sort == "Lastname") {
-          klon.querySelector(".student h2").innerHTML =
-            student.lastname + ", " + student.firstname;
-        } else {
-          // // Fill .student h1 with student fullname
-          klon.querySelector(".student h2").innerHTML =
-            student.firstname + " " + student.lastname;
-        }
-      } else {
-        if (sort == "Lastname") {
-          klon.querySelector(".student h2").innerHTML =
-            student.lastname + ", " + student.firstname + student.middlename;
-        } else {
-          // // Fill .student h1 with student fullname
-          klon.querySelector(".student h2").innerHTML =
-            student.firstname +
-            " " +
-            student.middlename +
-            " " +
-            student.lastname;
-        }
-      }
-      // // Fill .student h2 with student house
-      klon.querySelector(".student h3").innerHTML = student.house;
-
-      // // House attribute
-      klon
-        .querySelector(".student")
-        .setAttribute("house", student.house.toLowerCase());
-
-      // // Clone element from
-      dest.appendChild(klon);
-    });
-
-    // Eventlistener for each student
-    // document.querySelectorAll(".student").forEach(student => {
-    //   student.addEventListener("click", showModal);
-    // });
-  }
-
-  function sortBy() {
-    console.log("Sort json");
-    // Change filter by-varible
-    sort = this.value;
-    console.log(sort);
-    // If statement to sort by selection
-    // If firstname sort by firstname
-    if (sort == "Firstname") {
-      console.log(sort);
-      // Function to sort by firstname
-      currentStudents.sort(function(a, b) {
-        return a.firstname.localeCompare(b.firstname);
-      });
-      // If lastname sort by lastname
-    } else if (sort == "Lastname") {
-      console.log(sort);
-      // Function to sort by lastname
-      currentStudents.sort(function(a, b) {
-        return a.lastname.localeCompare(b.lastname);
-      });
-      // If house sort by house
-    } else if (sort == "House") {
-      console.log(sort);
-      // Function to sort by house
-      currentStudents.sort(function(a, b) {
-        return a.house.localeCompare(b.house);
-      });
-      // Reset sorting
-    } else if (sort == "none") {
-      // Call start function
-      start();
-    }
-    // Call function to show studentlist again
-    showStudents();
   }
 }
