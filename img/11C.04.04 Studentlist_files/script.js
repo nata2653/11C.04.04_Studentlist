@@ -307,10 +307,10 @@ function start() {
     document.querySelector(".list").innerHTML = `<h1>Expelled students</h1>`;
 
     expellStudent.forEach(expellStudent => {
-      document.querySelector(".list").innerHTML += `<div class="student-expelled"> <img src="img/${expellStudent.imagelink}" alt=""> 
-      <div class="text"><h1>${expellStudent.firstname + " " + expellStudent.middlename + " " + expellStudent.lastname}</h1><h2>${expellStudent.house}</h2> </div></div>`;
+      document.querySelector(".list").innerHTML += `<div class="student-expelled"> <img src="img/${expellStudent.imagelink}" alt=""> </div>`;
+      document.querySelector(".list").innerHTML += `<div class="student-expelled"> <h1>${expellStudent.firstname + " " + expellStudent.middlename + " " + expellStudent.lastname}</h1> </div>`;
+      document.querySelector(".list").innerHTML += `<div class="student-expelled"> <h2>${expellStudent.house}</h2> </div>`;
     });
-
     document.querySelector(".list").classList.remove("hide");
 
     document.querySelector(".list").addEventListener("click", hideClass);

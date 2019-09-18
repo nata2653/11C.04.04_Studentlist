@@ -28,35 +28,38 @@
       </select>
     </div>
 
-    <div class="gryffindor modal hide">
-      <div class="image">
-        <h1></h1>
+    <div class="counter">
+      <p class="count-stud"></p>
+      <p class="count-exp"></p>
+      <div class="count-house">
+        <p class="count-gryffindor"></p>
+        <p class="count-slytherin"></p>
+        <p class="count-hufflepuff"></p>
+        <p class="count-ravenclaw"></p>
       </div>
     </div>
 
-    <div class="ravenclaw modal hide">
-      <div class="image">
-        <h1></h1>
-      </div>
-    </div>
+    <div class="list hide"></div>
 
-    <div class="hufflepuff modal hide">
-      <div class="image">
+    <div id="popup" class="hide">
+      <div id="content">
         <h1></h1>
-      </div>
-    </div>
-
-    <div class="slytherin modal hide">
-      <div class="image">
-        <h1></h1>
-      </div>
-    </div>
-
-    <template
-      ><div class="student" house="">
         <h2></h2>
-        <h3></h3></div
-    ></template>
+        <h3></h3>
+
+        <img src="" alt="" />
+      </div>
+    </div>
+
+    <template>
+      <div class="student" house="">
+        <img src="" alt="" />
+        <h2></h2>
+        <h3></h3>
+        <button class="info">See more</button>
+        <button class="expell" data-action="remove">Expell</button>
+      </div></template
+    >
     <div class="studentlist"></div>
 
     <script src="script.js"></script>

@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)http://127.0.0.1:61978/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>11C.04.04 Studentlist</title>
+    <link rel="stylesheet" href="./11C.04.04 Studentlist_files/styles.css">
+  </head>
+  <body>
+    <h1 class="headline">Hogwarts</h1>
+    <div class="dropdowns">
+      <label for="#sort-by">Sort by</label>
+      <select id="sort-by">
+        <option value="none">None</option>
+        <option value="Firstname">Firstname</option>
+        <option value="Lastname">Lastname</option>
+        <option value="House">House</option>
+      </select>
+
+      <label for="#filter-by">Filter by</label>
+      <select id="filter-by">
+        <option class="option" value="All">Show all</option>
+        <option class="option" value="Hufflepuff">Hufflepuff</option>
+        <option class="option" value="Gryffindor">Gryffindor</option>
+        <option class="option" value="Ravenclaw">Ravenclaw</option>
+        <option class="option" value="Slytherin">Slytherin</option>
+      </select>
+    </div>
+
+    <div class="counter">
+      <p class="count-stud">Current students: 34</p>
+      <p class="count-exp">Expelled students: 0</p>
+      <p class="count-house">
+       </p><p class="count-gryffindor">Students in Gryffindor: 8</p>
+       <p class="count-slytherin">Students in Slytherin: 9</p>
+       <p class="count-hufflepuff">Students in Hufflepuff: 9</p>
+       <p class="count-ravenclaw">Students in Ravenclaw: 8</p>
+      <p></p>
+    </div>
+
+    <div class="list hide"></div>
+
+    <div id="popup" class="hide">
+      <div id="content">
+        <h1></h1>
+        <h2></h2>
+        <h3></h3>
+
+        <img src="http://127.0.0.1:61978/" alt="">
+      </div>
+    </div>
+
+    <template></template>
+    <div class="studentlist">
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/parkinson_p.png" alt="">
+        <h2>Pansy  Parkinson</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="0a9002ea-43ac-4512-9fe1-1effb7ad9ea3">See more</button>
+        <button class="expell" data-action="remove" data-id="0a9002ea-43ac-4512-9fe1-1effb7ad9ea3">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/abbott_h.png" alt="">
+        <h2>Hannah  Abbott</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="404707f1-0a59-485f-a8e4-ecaaa15e14ae">See more</button>
+        <button class="expell" data-action="remove" data-id="404707f1-0a59-485f-a8e4-ecaaa15e14ae">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/bones_s.png" alt="">
+        <h2>Susan  Bones</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="d6a7df44-513c-453b-ae11-816ed261630f">See more</button>
+        <button class="expell" data-action="remove" data-id="d6a7df44-513c-453b-ae11-816ed261630f">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/finch-fletchley_j.png" alt="">
+        <h2>Justin  Finch-fletchley</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="3feb863c-54e9-448f-a55e-c7aea6812726">See more</button>
+        <button class="expell" data-action="remove" data-id="3feb863c-54e9-448f-a55e-c7aea6812726">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/boot_t.png" alt="">
+        <h2>Terry  Boot</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="6f1fb858-53ff-4f27-ae7b-610648784670">See more</button>
+        <button class="expell" data-action="remove" data-id="6f1fb858-53ff-4f27-ae7b-610648784670">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/smith_z.png" alt="">
+        <h2>Zacharias  Smith</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="8fe248a1-1c6f-4ae0-964f-73f3cecd3550">See more</button>
+        <button class="expell" data-action="remove" data-id="8fe248a1-1c6f-4ae0-964f-73f3cecd3550">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/macmillan_e.png" alt="">
+        <h2>Ernest "ernie" Macmillan</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="89f1f930-5aef-4964-9cf5-8c2b6c35ffea">See more</button>
+        <button class="expell" data-action="remove" data-id="89f1f930-5aef-4964-9cf5-8c2b6c35ffea">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/jones_m.png" alt="">
+        <h2>Megan  Jones</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="780f9eb5-aee4-425d-828a-e073a130b66a">See more</button>
+        <button class="expell" data-action="remove" data-id="780f9eb5-aee4-425d-828a-e073a130b66a">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/hopkins_w.png" alt="">
+        <h2>Wayne  Hopkins</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="45f963b2-06fc-4991-8faa-17a58ed3a33f">See more</button>
+        <button class="expell" data-action="remove" data-id="45f963b2-06fc-4991-8faa-17a58ed3a33f">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/unknown_l.png" alt="">
+        <h2>Leanne  Unknown</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="46fb4c51-f3fd-41b4-a8f1-582834479047">See more</button>
+        <button class="expell" data-action="remove" data-id="46fb4c51-f3fd-41b4-a8f1-582834479047">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/brown_l.png" alt="">
+        <h2>Lavender  Brown</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="190f2886-2313-4da5-b245-03e5bb297f37">See more</button>
+        <button class="expell" data-action="remove" data-id="190f2886-2313-4da5-b245-03e5bb297f37">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/finnigan_s.png" alt="">
+        <h2>Seamus  Finnigan</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="870fe185-f142-403a-bdeb-777b35252a83">See more</button>
+        <button class="expell" data-action="remove" data-id="870fe185-f142-403a-bdeb-777b35252a83">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/granger_h.png" alt="">
+        <h2>Hermione Jean Granger</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="f736ef98-ee37-4f1e-bfe0-3332987c3c83">See more</button>
+        <button class="expell" data-action="remove" data-id="f736ef98-ee37-4f1e-bfe0-3332987c3c83">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/longbottom_n.png" alt="">
+        <h2>Neville  Longbottom</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="fc4e9495-5bb9-48b4-a487-b8f0daba0fd6">See more</button>
+        <button class="expell" data-action="remove" data-id="fc4e9495-5bb9-48b4-a487-b8f0daba0fd6">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/patil_p.png" alt="">
+        <h2>Parvati  Patil</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="8950af37-2895-451c-ab5a-f045ea011685">See more</button>
+        <button class="expell" data-action="remove" data-id="8950af37-2895-451c-ab5a-f045ea011685">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/potter_h.png" alt="">
+        <h2>Harry James Potter</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="8313ad6a-dbdd-4bf3-af71-c9fd48f73e6f">See more</button>
+        <button class="expell" data-action="remove" data-id="8313ad6a-dbdd-4bf3-af71-c9fd48f73e6f">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/thomas_d.png" alt="">
+        <h2>Dean  Thomas</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="a5578076-4533-45d0-9016-e4ad2ada311e">See more</button>
+        <button class="expell" data-action="remove" data-id="a5578076-4533-45d0-9016-e4ad2ada311e">Expell</button>
+      </div>
+      <div class="student" house="gryffindor">
+        <img src="./11C.04.04 Studentlist_files/weasley_r.png" alt="">
+        <h2>Ronald Bilius Weasley</h2>
+        <h3>Gryffindor</h3>
+        <button class="info" data-info="a85abaf8-edc7-4bc6-9271-14bf1c1f9499">See more</button>
+        <button class="expell" data-action="remove" data-id="a85abaf8-edc7-4bc6-9271-14bf1c1f9499">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/brocklehurst_m.png" alt="">
+        <h2>Mandy  Brocklehurst</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="f95a5a69-b120-4feb-ae28-f55ac090e479">See more</button>
+        <button class="expell" data-action="remove" data-id="f95a5a69-b120-4feb-ae28-f55ac090e479">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/patil_p.png" alt="">
+        <h2>Padma  Patil</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="07089994-e226-42ff-a323-10dd3a0cea52">See more</button>
+        <button class="expell" data-action="remove" data-id="07089994-e226-42ff-a323-10dd3a0cea52">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/turpin_l.png" alt="">
+        <h2>Lisa  Turpin</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="7bf086f0-9082-43e8-a0c4-7bb89b5b06b5">See more</button>
+        <button class="expell" data-action="remove" data-id="7bf086f0-9082-43e8-a0c4-7bb89b5b06b5">Expell</button>
+      </div>
+      <div class="student" house="hufflepuff">
+        <img src="./11C.04.04 Studentlist_files/cornfoot_s.png" alt="">
+        <h2>Stephen  Cornfoot</h2>
+        <h3>Hufflepuff</h3>
+        <button class="info" data-info="a44db99c-c7b7-4c5d-86dd-b450690627c5">See more</button>
+        <button class="expell" data-action="remove" data-id="a44db99c-c7b7-4c5d-86dd-b450690627c5">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/goldstein_a.png" alt="">
+        <h2>Anthony  Goldstein</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="5a906e8f-cce5-4379-b983-9008efb0b32f">See more</button>
+        <button class="expell" data-action="remove" data-id="5a906e8f-cce5-4379-b983-9008efb0b32f">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/corner_m.png" alt="">
+        <h2>Michael  Corner</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="9e591748-453c-48cf-9f75-f5c7d1441bc2">See more</button>
+        <button class="expell" data-action="remove" data-id="9e591748-453c-48cf-9f75-f5c7d1441bc2">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/entwistle_k.png" alt="">
+        <h2>Kevin  Entwistle</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="99cc7ab3-687a-4933-a3d2-24a220d406f6">See more</button>
+        <button class="expell" data-action="remove" data-id="99cc7ab3-687a-4933-a3d2-24a220d406f6">Expell</button>
+      </div>
+      <div class="student" house="ravenclaw">
+        <img src="./11C.04.04 Studentlist_files/li_s.png" alt="">
+        <h2>Sue  Li</h2>
+        <h3>Ravenclaw</h3>
+        <button class="info" data-info="9efdc22f-4089-42a1-a34e-632325e3cf38">See more</button>
+        <button class="expell" data-action="remove" data-id="9efdc22f-4089-42a1-a34e-632325e3cf38">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/malfoy_d.png" alt="">
+        <h2>Draco Lucius Malfoy</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="01175629-53f0-4598-b5ff-33b376cfbfe4">See more</button>
+        <button class="expell" data-action="remove" data-id="01175629-53f0-4598-b5ff-33b376cfbfe4">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/crabbe_v.png" alt="">
+        <h2>Vincent  Crabbe</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="407efead-9999-4f96-941f-3aba789be6d9">See more</button>
+        <button class="expell" data-action="remove" data-id="407efead-9999-4f96-941f-3aba789be6d9">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/davis_t.png" alt="">
+        <h2>Tracey  Davis</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="33b37e16-5112-4861-85d4-99d3a9271c99">See more</button>
+        <button class="expell" data-action="remove" data-id="33b37e16-5112-4861-85d4-99d3a9271c99">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/goyle_g.png" alt="">
+        <h2>Gregory  Goyle</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="96e8532c-600e-451b-a6ae-621706164879">See more</button>
+        <button class="expell" data-action="remove" data-id="96e8532c-600e-451b-a6ae-621706164879">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/bulstrode_m.png" alt="">
+        <h2>Millicent  Bulstrode</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="b2971e10-cc9e-435d-a24c-ca7fcb9760d1">See more</button>
+        <button class="expell" data-action="remove" data-id="b2971e10-cc9e-435d-a24c-ca7fcb9760d1">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/nott_t.png" alt="">
+        <h2>Theodore  Nott</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="f47fa684-b5c6-4f0e-943b-18d758c3478d">See more</button>
+        <button class="expell" data-action="remove" data-id="f47fa684-b5c6-4f0e-943b-18d758c3478d">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/greengrass_d.png" alt="">
+        <h2>Daphne  Greengrass</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="8544f85b-41c4-4dfb-8990-13032a45ae52">See more</button>
+        <button class="expell" data-action="remove" data-id="8544f85b-41c4-4dfb-8990-13032a45ae52">Expell</button>
+      </div>
+      <div class="student" house="slytherin">
+        <img src="./11C.04.04 Studentlist_files/zabini_b.png" alt="">
+        <h2>Blaise  Zabini</h2>
+        <h3>Slytherin</h3>
+        <button class="info" data-info="642bd8b1-a700-4e9a-9dcf-32d9d008b535">See more</button>
+        <button class="expell" data-action="remove" data-id="642bd8b1-a700-4e9a-9dcf-32d9d008b535">Expell</button>
+      </div></div>
+
+    <script src="./11C.04.04 Studentlist_files/script.js"></script>
+  <!-- Code injected by live-server -->
+<script type="text/javascript">
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function() {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					head.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					head.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function(msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			console.log('Live reload enabled.');
+		})();
+	}
+	// ]]>
+</script>
+
+
+</body></html>
