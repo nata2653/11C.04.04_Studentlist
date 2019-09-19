@@ -14,6 +14,8 @@ function start() {
 
   let expellStudent = [];
 
+  let familyBlood = [];
+
   let gryffindor;
   let hufflepuff;
   let slytherin;
@@ -26,7 +28,9 @@ function start() {
     gender: "",
     house: "",
     imagelink: "",
-    id: ""
+    id: "",
+    bloodStatus: "",
+    prefect: ""
   };
 
   //Sort-by dropdown
@@ -86,6 +90,11 @@ function start() {
         student.imagelink = `${student.lastname.toLowerCase()}_${student.firstname.substring(0, 1).toLowerCase()}.png`;
         student.id = create_UUID();
       }
+
+      if (student.bloodStatus == "") {
+        student.bloodStatus = "Muggle born";
+      }
+
       allStudents.push(student);
     });
 
@@ -156,6 +165,7 @@ function start() {
     document.querySelectorAll(".expell").forEach(expell => {
       expell.addEventListener("click", expelStudents);
     });
+
     //Click to show modal
     document.querySelectorAll(".info").forEach(info => {
       info.addEventListener("click", showModal);
@@ -175,16 +185,27 @@ function start() {
       if (student.id == id) {
         document.querySelector("#popup").classList.remove("hide");
         document.querySelector("#popup").classList.add(houses);
-        document.querySelector("#popup h1").innerHTML = student.firstname + " " + student.middlename + " " + student.lastname;
-        document.querySelector("#popup h3").innerHTML = student.gender;
-        document.querySelector("#popup h2").innerHTML = student.house;
         document.querySelector("#popup img").src = `img/${student.imagelink}`;
+        document.querySelector("#popup h1").innerHTML = student.firstname + " " + student.middlename + " " + student.lastname;
+        document.querySelector("#popup h2").innerHTML = student.house;
+        document.querySelector("#popup p").innerHTML = `Gender: ${student.gender}`;
+        document.querySelector("#popup .blood").innerHTML = `Blood-type: ${student.bloodStatus}`;
 
-        // if (student == expelledStudent) {
-        //   document.querySelector("#popup").textContent = "The student is expelled";
-        // }
+        if (student.house === "Gryffindor") {
+          document.querySelector("#popup").className = "gryffindor";
+          document.querySelector("#popup .crest img").src = "img/gryffindorcrest.png";
+        } else if (student.house === "Hufflepuff") {
+          document.querySelector("#popup").className = "hufflepuff";
+          document.querySelector("#popup .crest img").src = "img/hufflepuffcrest.png";
+        } else if (student.house === "Slytherin") {
+          document.querySelector("#popup").className = "slytherin";
+          document.querySelector("#popup .crest img").src = "img/slytherincrest.png";
+        } else {
+          document.querySelector("#popup").className = "ravenclaw";
+          document.querySelector("#popup .crest img").src = "img/ravenclawcrest.png";
+        }
 
-        document.querySelector("#popup").addEventListener("click", hideModal);
+        document.querySelector("#close-popup").addEventListener("click", hideModal);
 
         function hideModal() {
           console.log("hide modal");
@@ -217,19 +238,17 @@ function start() {
         return a.house.localeCompare(b.house);
       });
       // Reset sort
-    } else if (sort == "none") {
-      // Call start function
-      start();
     }
     // Call function to show studentlist again
     showStudents();
   }
+  //Function to make filter
   function setFilter() {
     house = this.value;
     currentStudents = filtering(house);
     showStudents();
   }
-
+  //Make the filter happen (boolean and return)
   function filtering(house) {
     console.log(house);
     let list = allStudents.filter(filterHouse);
@@ -245,6 +264,7 @@ function start() {
     return list;
   }
 
+  //Function to expell student
   function expelStudents(event) {
     console.log("Expell clicked");
 
@@ -262,6 +282,7 @@ function start() {
           return false;
         }
       }
+
       let removed = currentStudents.slice(index, index + 1);
       console.log(removed);
       removed.forEach(listOfExpelled);
@@ -274,10 +295,13 @@ function start() {
 
       showHouseNumbers();
     }
-    console.table(allStudents);
 
+    console.table(allStudents);
+    //Show the expelled students in a list
     function listOfExpelled(student) {
       console.log("list of expelled");
+
+      //Object with students data
       const finalExpell = {
         firstname: "",
         middlename: "",
@@ -296,15 +320,20 @@ function start() {
       expelledStudent.house = student.house;
       expelledStudent.imagelink = student.imagelink;
       expelledStudent.id = student.id;
+      document.querySelector(".student").className = "fade-out";
+
       expellStudent.push(expelledStudent);
 
       console.table(expellStudent);
     }
 
     document.querySelector(".count-exp").addEventListener("click", showListOfExpelled);
+    document.querySelector(".counter button").classList.add("green");
   }
+
+  //Function to show list of expelled
   function showListOfExpelled() {
-    document.querySelector(".list").innerHTML = `<h1>Expelled students</h1>`;
+    document.querySelector(".list").innerHTML = `<h1>Expelled students</h1><div class="close-list">x</div> <br>`;
 
     expellStudent.forEach(expellStudent => {
       document.querySelector(".list").innerHTML += `<div class="student-expelled"> <img src="img/${expellStudent.imagelink}" alt=""> 
@@ -313,14 +342,15 @@ function start() {
 
     document.querySelector(".list").classList.remove("hide");
 
-    document.querySelector(".list").addEventListener("click", hideClass);
+    document.querySelector(".close-list").addEventListener("click", hideClass);
 
     function hideClass() {
       document.querySelector(".list").classList.add("hide");
     }
   }
-
+  //Make function to show numbers of students in house
   function showHouseNumbers(student) {
+    //Use 'includes' to find specific house
     gryffindor = allStudents.filter(obj => obj.house.includes("Gryffindor"));
     hufflepuff = allStudents.filter(obj => obj.house.includes("Hufflepuff"));
     slytherin = allStudents.filter(obj => obj.house.includes("Slytherin"));
@@ -329,5 +359,56 @@ function start() {
     document.querySelector(".count-hufflepuff").innerHTML = `Students in Hufflepuff: ${hufflepuff.length}`;
     document.querySelector(".count-slytherin").innerHTML = `Students in Slytherin: ${slytherin.length}`;
     document.querySelector(".count-ravenclaw").innerHTML = `Students in Ravenclaw: ${ravenclaw.length}`;
+  }
+
+  //Get families array and fetch it
+  async function getJsonBlood() {
+    // Fetch JSON-data for bloodtypes
+    let jsonData = await fetch("http://petlatkea.dk/2019/hogwartsdata/families.json");
+
+    // Convert to JSON file
+    familyBlood = await jsonData.json();
+
+    const halfBlood = familyBlood.half;
+    const pureBlood = familyBlood.pure;
+
+    //Find half- and pureblood
+    getHalfBlood(halfBlood);
+    getPureBlood(pureBlood);
+  }
+
+  getJsonBlood();
+
+  //Make function to halfblood
+  function getHalfBlood(halfBlood) {
+    let half;
+
+    halfBlood.forEach(student => {
+      half = student;
+      // console.log(half);
+
+      allStudents.forEach(student => {
+        if (student.lastname == half) {
+          // console.log("The student is halfblood");
+          student.bloodStatus = "Halfblood";
+        }
+      });
+    });
+  }
+
+  function getPureBlood(pureBlood) {
+    let pure;
+
+    pureBlood.forEach(student => {
+      pure = student;
+      console.log(pure);
+
+      allStudents.forEach(student => {
+        if (student.lastname == pure) {
+          console.log("The student is pureblood");
+          student.bloodStatus = "Pureblood";
+        }
+      });
+    });
   }
 }
