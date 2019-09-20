@@ -57,9 +57,27 @@ function start() {
   }
   // Call function to fetch JSON-data
   getJson();
+
+  //Get families array and fetch it
+  async function getJsonBlood() {
+    // Fetch JSON-data for bloodtypes
+    let jsonData = await fetch("http://petlatkea.dk/2019/hogwartsdata/families.json");
+
+    // Convert to JSON file
+    familyBlood = await jsonData.json();
+
+    const halfBlood = familyBlood.half;
+    const pureBlood = familyBlood.pure;
+
+    //Find half- and pureblood
+    getHalfBlood(halfBlood);
+    getPureBlood(pureBlood);
+  }
+  getJsonBlood();
+
   //Clean array - make objects and split up data to show
   function cleanArray(students) {
-    newStudentHacked();
+    // newStudentHacked();
 
     students.forEach(jsonObject => {
       const student = Object.create(Student);
@@ -108,7 +126,9 @@ function start() {
 
     //Call filtering-function
     currentStudents = filtering("All");
+
     showStudents();
+    showHouseNumbers();
   }
 
   function create_UUID() {
@@ -126,7 +146,7 @@ function start() {
   console.log(create_UUID());
 
   function showStudents() {
-    console.log(currentStudents);
+    // console.log(currentStudents);
     // Empty .studentlist
     document.querySelector(".studentlist").innerHTML = "";
     // Destination variable
@@ -172,8 +192,6 @@ function start() {
     document.querySelectorAll(".info").forEach(info => {
       info.addEventListener("click", showModal);
     });
-
-    showHouseNumbers();
   }
 
   function showModal(student) {
@@ -284,6 +302,7 @@ function start() {
 
     if (elm.dataset.action == "remove") {
       console.log("remove");
+      const elm = event.target;
       const id = elm.dataset.id;
       const index = currentStudents.findIndex(find);
       const index2 = allStudents.findIndex(find);
@@ -342,7 +361,7 @@ function start() {
 
     expellStudent.push(expelledStudent);
 
-    console.table(expellStudent);
+    // console.table(expellStudent);
   }
 
   document.querySelector(".count-exp").addEventListener("click", showListOfExpelled);
@@ -367,7 +386,9 @@ function showListOfExpelled() {
   }
 }
 //Make function to show numbers of students in house
-function showHouseNumbers(student) {
+function showHouseNumbers() {
+  console.log("test");
+
   //Use 'includes' to find specific house
   gryffindor = allStudents.filter(obj => obj.house.includes("Gryffindor"));
   hufflepuff = allStudents.filter(obj => obj.house.includes("Hufflepuff"));
@@ -378,24 +399,6 @@ function showHouseNumbers(student) {
   document.querySelector(".count-slytherin").innerHTML = `Students in Slytherin: ${slytherin.length}`;
   document.querySelector(".count-ravenclaw").innerHTML = `Students in Ravenclaw: ${ravenclaw.length}`;
 }
-
-//Get families array and fetch it
-async function getJsonBlood() {
-  // Fetch JSON-data for bloodtypes
-  let jsonData = await fetch("http://petlatkea.dk/2019/hogwartsdata/families.json");
-
-  // Convert to JSON file
-  familyBlood = await jsonData.json();
-
-  const halfBlood = familyBlood.half;
-  const pureBlood = familyBlood.pure;
-
-  //Find half- and pureblood
-  getHalfBlood(halfBlood);
-  getPureBlood(pureBlood);
-}
-
-getJsonBlood();
 
 //Make function to halfblood
 function getHalfBlood(halfBlood) {
@@ -430,7 +433,7 @@ function getPureBlood(pureBlood) {
   });
   hackedBloodStatus();
 }
-//Make inquisitorial squad function
+// Make inquisitorial squad function
 function inquisitorial() {
   console.log("inquisitorial squad clicked");
 
@@ -454,7 +457,7 @@ function inquisitorial() {
     console.log(student.InqSquad);
   });
 }
-//Make remove from squad function
+// Make remove from squad function
 function removeFromSquad(id) {
   console.log("Remove from squad clicked");
   //Remove from squad with if-statement
