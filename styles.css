@@ -69,6 +69,10 @@ p {
   border-radius: 8px;
   box-shadow: 5px 2px 4px 1px rgba(128, 128, 128, 0.47);
   background-color: rgb(250, 248, 248);
+
+  transition: 500ms linear;
+
+  /*Place transition here*/
 }
 
 #popup {
@@ -250,12 +254,14 @@ button:hover {
 }
 
 .fade-out {
-  opacity: 0;
+}
 
-  -webkit-transition: opacity 3s ease-in-out;
-  -moz-transition: opacity 3s ease-in-out;
-  -ms-transition: opacity 3s ease-in-out;
-  -o-transition: opacity 3s ease-in-out;
+.removeprefect {
+  background-color: green;
+}
+
+.remove {
+  opacity: 0;
 }
 
 /*MEDIA QUERIES*/

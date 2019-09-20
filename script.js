@@ -29,8 +29,10 @@ function start() {
     house: "",
     imagelink: "",
     id: "",
+    expelled: "",
     bloodStatus: "",
-    prefect: ""
+    prefect: "",
+    InqSquad: ""
   };
 
   //Sort-by dropdown
@@ -57,6 +59,8 @@ function start() {
   getJson();
   //Clean array - make objects and split up data to show
   function cleanArray(students) {
+    newStudentHacked();
+
     students.forEach(jsonObject => {
       const student = Object.create(Student);
       jsonObject.fullname = jsonObject.fullname.trim();
@@ -94,12 +98,10 @@ function start() {
       if (student.bloodStatus == "") {
         student.bloodStatus = "Muggle born";
       }
+      student.InqSquad = false;
 
       allStudents.push(student);
     });
-
-    // let houseGryffindor = allStudents.house;
-    // console.log(houseGryffindor);
 
     document.querySelector(".count-stud").innerHTML = `Current students: ${allStudents.length}`;
     document.querySelector(".count-exp").innerHTML = `Expelled students: ${expellStudent.length}`;
@@ -190,6 +192,16 @@ function start() {
         document.querySelector("#popup h2").innerHTML = student.house;
         document.querySelector("#popup p").innerHTML = `Gender: ${student.gender}`;
         document.querySelector("#popup .blood").innerHTML = `Blood-type: ${student.bloodStatus}`;
+        document.querySelector(".squad").addEventListener("click", inquisitorial);
+        document.querySelector(".squad").dataset.id = student.id;
+
+        // if (student.prefect == "Prefect") {
+        //   document.querySelector(".prefect").textContent = "Remove student as prefect";
+        //   document.querySelector(".prefect").addEventListener("click", prefectFunc);
+        // } else {
+        //   document.querySelector(".prefect").classList = "btn-read-more";
+        //   document.querySelector(".prefect).textContent = "Make student prefect";
+        // }
 
         if (student.house === "Gryffindor") {
           document.querySelector("#popup").className = "gryffindor";
@@ -274,6 +286,7 @@ function start() {
       console.log("remove");
       const id = elm.dataset.id;
       const index = currentStudents.findIndex(find);
+      const index2 = allStudents.findIndex(find);
 
       function find(student) {
         if (student.id == id) {
@@ -282,133 +295,226 @@ function start() {
           return false;
         }
       }
-
-      let removed = currentStudents.slice(index, index + 1);
-      console.log(removed);
-      removed.forEach(listOfExpelled);
-      elm.parentElement.remove();
-      currentStudents.splice(index, 1);
-      allStudents.splice(index, 1);
-
-      document.querySelector(".count-stud").innerHTML = `Current students: ${allStudents.length}`;
-      document.querySelector(".count-exp").innerHTML = `Expelled students: ${expellStudent.length}`;
-
-      showHouseNumbers();
     }
 
-    console.table(allStudents);
-    //Show the expelled students in a list
-    function listOfExpelled(student) {
-      console.log("list of expelled");
+    let removed = currentStudents.slice(index, index + 1);
+    console.log(removed);
+    removed.forEach(listOfExpelled);
+    elm.parentElement.classList.add("remove");
+    currentStudents.splice(index, 1);
+    allStudents.splice(index2, 1);
 
-      //Object with students data
-      const finalExpell = {
-        firstname: "",
-        middlename: "",
-        lastname: "",
-        gender: "",
-        house: "",
-        imagelink: "",
-        id: ""
-      };
+    document.querySelector(".count-stud").innerHTML = `Current students: ${allStudents.length}`;
+    document.querySelector(".count-exp").innerHTML = `Expelled students: ${expellStudent.length}`;
 
-      const expelledStudent = Object.create(finalExpell);
-      expelledStudent.firstname = student.firstname;
-      expelledStudent.middlename = student.middlename;
-      expelledStudent.lastname = student.lastname;
-      expelledStudent.gender = student.gender;
-      expelledStudent.house = student.house;
-      expelledStudent.imagelink = student.imagelink;
-      expelledStudent.id = student.id;
-      document.querySelector(".student").className = "fade-out";
-
-      expellStudent.push(expelledStudent);
-
-      console.table(expellStudent);
-    }
-
-    document.querySelector(".count-exp").addEventListener("click", showListOfExpelled);
-    document.querySelector(".counter button").classList.add("green");
-  }
-
-  //Function to show list of expelled
-  function showListOfExpelled() {
-    document.querySelector(".list").innerHTML = `<h1>Expelled students</h1><div class="close-list">x</div> <br>`;
-
-    expellStudent.forEach(expellStudent => {
-      document.querySelector(".list").innerHTML += `<div class="student-expelled"> <img src="img/${expellStudent.imagelink}" alt=""> 
-      <div class="text"><h1>${expellStudent.firstname + " " + expellStudent.middlename + " " + expellStudent.lastname}</h1><h2>${expellStudent.house}</h2> </div></div>`;
+    elm.parentElement.addEventListener("transitionend", function() {
+      this.remove();
     });
 
-    document.querySelector(".list").classList.remove("hide");
-
-    document.querySelector(".close-list").addEventListener("click", hideClass);
-
-    function hideClass() {
-      document.querySelector(".list").classList.add("hide");
-    }
-  }
-  //Make function to show numbers of students in house
-  function showHouseNumbers(student) {
-    //Use 'includes' to find specific house
-    gryffindor = allStudents.filter(obj => obj.house.includes("Gryffindor"));
-    hufflepuff = allStudents.filter(obj => obj.house.includes("Hufflepuff"));
-    slytherin = allStudents.filter(obj => obj.house.includes("Slytherin"));
-    ravenclaw = allStudents.filter(obj => obj.house.includes("Ravenclaw"));
-    document.querySelector(".count-gryffindor").innerHTML = `Students in Gryffindor: ${gryffindor.length}`;
-    document.querySelector(".count-hufflepuff").innerHTML = `Students in Hufflepuff: ${hufflepuff.length}`;
-    document.querySelector(".count-slytherin").innerHTML = `Students in Slytherin: ${slytherin.length}`;
-    document.querySelector(".count-ravenclaw").innerHTML = `Students in Ravenclaw: ${ravenclaw.length}`;
+    showHouseNumbers();
   }
 
-  //Get families array and fetch it
-  async function getJsonBlood() {
-    // Fetch JSON-data for bloodtypes
-    let jsonData = await fetch("http://petlatkea.dk/2019/hogwartsdata/families.json");
+  console.table(allStudents);
+  //Show the expelled students in a list
+  function listOfExpelled(student) {
+    console.log("list of expelled");
 
-    // Convert to JSON file
-    familyBlood = await jsonData.json();
+    //Object with students data
+    const finalExpell = {
+      firstname: "",
+      middlename: "",
+      lastname: "",
+      gender: "",
+      house: "",
+      imagelink: "",
+      id: ""
+    };
 
-    const halfBlood = familyBlood.half;
-    const pureBlood = familyBlood.pure;
+    const expelledStudent = Object.create(finalExpell);
+    expelledStudent.firstname = student.firstname;
+    expelledStudent.middlename = student.middlename;
+    expelledStudent.lastname = student.lastname;
+    expelledStudent.gender = student.gender;
+    expelledStudent.house = student.house;
+    expelledStudent.imagelink = student.imagelink;
+    expelledStudent.id = student.id;
+    // document.querySelector(".student").className = "fade-out";
 
-    //Find half- and pureblood
-    getHalfBlood(halfBlood);
-    getPureBlood(pureBlood);
+    expellStudent.push(expelledStudent);
+
+    console.table(expellStudent);
   }
 
-  getJsonBlood();
+  document.querySelector(".count-exp").addEventListener("click", showListOfExpelled);
+  document.querySelector(".counter button").classList.add("green");
+}
 
-  //Make function to halfblood
-  function getHalfBlood(halfBlood) {
-    let half;
+//Function to show list of expelled
+function showListOfExpelled() {
+  document.querySelector(".list").innerHTML = `<h1>Expelled students</h1><div class="close-list">x</div> <br>`;
 
-    halfBlood.forEach(student => {
-      half = student;
-      // console.log(half);
+  expellStudent.forEach(expellStudent => {
+    document.querySelector(".list").innerHTML += `<div class="student-expelled"> <img src="img/${expellStudent.imagelink}" alt=""> 
+      <div class="text"><h1>${expellStudent.firstname + " " + expellStudent.middlename + " " + expellStudent.lastname}</h1><h2>${expellStudent.house}</h2> <p>The student is expelled</p></div></div>`;
+  });
 
-      allStudents.forEach(student => {
-        if (student.lastname == half) {
-          // console.log("The student is halfblood");
-          student.bloodStatus = "Halfblood";
-        }
-      });
-    });
-  }
+  document.querySelector(".list").classList.remove("hide");
 
-  function getPureBlood(pureBlood) {
-    let pure;
+  document.querySelector(".close-list").addEventListener("click", hideClass);
 
-    pureBlood.forEach(student => {
-      pure = student;
-      console.log(pure);
-
-      allStudents.forEach(student => {
-        if (student.lastname == pure) {
-          console.log("The student is pureblood");
-          student.bloodStatus = "Pureblood";
-        }
-      });
-    });
+  function hideClass() {
+    document.querySelector(".list").classList.add("hide");
   }
 }
+//Make function to show numbers of students in house
+function showHouseNumbers(student) {
+  //Use 'includes' to find specific house
+  gryffindor = allStudents.filter(obj => obj.house.includes("Gryffindor"));
+  hufflepuff = allStudents.filter(obj => obj.house.includes("Hufflepuff"));
+  slytherin = allStudents.filter(obj => obj.house.includes("Slytherin"));
+  ravenclaw = allStudents.filter(obj => obj.house.includes("Ravenclaw"));
+  document.querySelector(".count-gryffindor").innerHTML = `Students in Gryffindor: ${gryffindor.length}`;
+  document.querySelector(".count-hufflepuff").innerHTML = `Students in Hufflepuff: ${hufflepuff.length}`;
+  document.querySelector(".count-slytherin").innerHTML = `Students in Slytherin: ${slytherin.length}`;
+  document.querySelector(".count-ravenclaw").innerHTML = `Students in Ravenclaw: ${ravenclaw.length}`;
+}
+
+//Get families array and fetch it
+async function getJsonBlood() {
+  // Fetch JSON-data for bloodtypes
+  let jsonData = await fetch("http://petlatkea.dk/2019/hogwartsdata/families.json");
+
+  // Convert to JSON file
+  familyBlood = await jsonData.json();
+
+  const halfBlood = familyBlood.half;
+  const pureBlood = familyBlood.pure;
+
+  //Find half- and pureblood
+  getHalfBlood(halfBlood);
+  getPureBlood(pureBlood);
+}
+
+getJsonBlood();
+
+//Make function to halfblood
+function getHalfBlood(halfBlood) {
+  let half;
+
+  halfBlood.forEach(student => {
+    half = student;
+    // console.log(half);
+
+    allStudents.forEach(student => {
+      if (student.lastname == half) {
+        // console.log("The student is halfblood");
+        student.bloodStatus = "Halfblood";
+      }
+    });
+  });
+}
+
+function getPureBlood(pureBlood) {
+  let pure;
+
+  pureBlood.forEach(student => {
+    pure = student;
+    console.log(pure);
+
+    allStudents.forEach(student => {
+      if (student.lastname == pure) {
+        console.log("The student is pureblood");
+        student.bloodStatus = "Pureblood";
+      }
+    });
+  });
+  hackedBloodStatus();
+}
+//Make inquisitorial squad function
+function inquisitorial() {
+  console.log("inquisitorial squad clicked");
+
+  const id = this.dataset.id;
+  console.log(id);
+
+  //Make forEach and if-statement
+  allStudents.forEach(student => {
+    if (student.bloodStatus === "Pureblood" || student.house === "Slytherin") {
+      if (student.id == id && student.InqSquad == false) {
+        student.InqSquad = true;
+        document.querySelector(".squad").textContent = "Remove from squad";
+        setTimeout(function() {
+          removeFromSquad(id);
+        }, 1000);
+      } else if (student.id == id && student.InqSquad == true) {
+        student.InqSquad = false;
+        document.querySelector(".squad").textContent = "Add to squad";
+      }
+    }
+    console.log(student.InqSquad);
+  });
+}
+//Make remove from squad function
+function removeFromSquad(id) {
+  console.log("Remove from squad clicked");
+  //Remove from squad with if-statement
+  allStudents.forEach(student => {
+    if (student.id == id && student.InqSquad == true) {
+      student.InqSquad = false;
+      document.querySelector(".squad").textContent = "Add to squad";
+    }
+  });
+}
+
+// function prefect() {
+//   const id = this.dataset.id;
+
+//   allStudents.forEach(student => {
+//     if (student.id === id && student.prefect === "") {
+//       student.prefect = "Prefect";
+//       console.log("Prefect chosen");
+//     } else if (student.id === id && student.prefect === "") {
+//       student.prefect = "";
+//       console.log("Prefect not chosen");
+//     }
+//   });
+// }
+
+//Make hacked blood status function
+function hackedBloodStatus() {
+  console.log("Hacked Bloodstatus start");
+
+  //Make forEach and if-statement to change bloodstatus on students
+  allStudents.forEach(student => {
+    if (student.bloodStatus === "Halfblood" || student.bloodStatus === "Muggle born") {
+      student.bloodStatus = "Pureblood";
+    } else {
+      const arrayBlood = ["Pureblood", "Halfblood", "Muggle born"];
+      const bloodStatus = arrayBlood[Math.floor(Math.random() * arrayBlood.length)];
+      student.bloodStatus = bloodStatus;
+    }
+  });
+}
+
+// function newStudentHacked() {
+//   const student = Object.create(Student);
+
+//   student.firstname = "Natalie";
+//   student.lastname = "Sirich";
+//   student.gender = "Girl";
+//   student.id = create_UUID;
+//   student.imagelink = "anonymous.png";
+
+//   allStudents.push(student);
+// }
+
+// Make prefect function
+//   function prefect(student) {
+//   document.querySelector(".prefect").addEventListener("click", addToPrefect);
+// }
+
+// Make function to add to prefect
+// function addToPrefect() {
+//   document.querySelector(".removeprefect").classList.remove("hide");
+
+//Make function to remove from prefect
