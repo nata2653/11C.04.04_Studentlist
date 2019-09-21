@@ -77,7 +77,7 @@ function start() {
 
   //Clean array - make objects and split up data to show
   function cleanArray(students) {
-    // newStudentHacked();
+    newStudentHacked();
 
     students.forEach(jsonObject => {
       const student = Object.create(Student);
@@ -111,6 +111,12 @@ function start() {
         student.gender = jsonObject.gender.charAt(0).toUpperCase() + jsonObject.gender.slice(1).toLowerCase();
         student.imagelink = `${student.lastname.toLowerCase()}_${student.firstname.substring(0, 1).toLowerCase()}.png`;
         student.id = create_UUID();
+      }
+      if (student.lastname == "Finch-fletchley") {
+        console.log("Finch-fletchley");
+        student.lastname = student.lastname.split("-");
+        student.lastname = `${student.lastname[0].charAt(0).toUpperCase() + student.lastname[0].slice(1).toLowerCase()}-${student.lastname[1].charAt(0).toUpperCase() +
+          student.lastname[1].slice(1).toLowerCase()}`;
       }
 
       if (student.bloodStatus == "") {
@@ -267,7 +273,6 @@ function start() {
       currentStudents.sort(function(a, b) {
         return a.house.localeCompare(b.house);
       });
-      // Reset sort
     }
     // Call function to show studentlist again
     showStudents();
@@ -298,14 +303,18 @@ function start() {
   function expelStudents(event) {
     console.log("Expell clicked");
 
-    const elm = event.target;
+    // const elm = event.target;
+    let elm;
+    let id;
+    let index;
+    let index2;
 
     if (elm.dataset.action == "remove") {
       console.log("remove");
-      const elm = event.target;
-      const id = elm.dataset.id;
-      const index = currentStudents.findIndex(find);
-      const index2 = allStudents.findIndex(find);
+      elm = event.target;
+      id = elm.dataset.id;
+      index = currentStudents.findIndex(find);
+      index2 = allStudents.findIndex(find);
 
       function find(student) {
         if (student.id == id) {
@@ -499,17 +508,17 @@ function hackedBloodStatus() {
   });
 }
 
-// function newStudentHacked() {
-//   const student = Object.create(Student);
+function newStudentHacked() {
+  const student = Object.create(Student);
 
-//   student.firstname = "Natalie";
-//   student.lastname = "Sirich";
-//   student.gender = "Girl";
-//   student.id = create_UUID;
-//   student.imagelink = "anonymous.png";
+  student.firstname = "Natalie";
+  student.lastname = "Sirich";
+  student.gender = "Girl";
+  student.id = create_UUID;
+  student.imagelink = "anonymous.png";
 
-//   allStudents.push(student);
-// }
+  allStudents.push(student);
+}
 
 // Make prefect function
 //   function prefect(student) {
