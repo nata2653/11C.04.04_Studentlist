@@ -156,7 +156,6 @@ img {
 }
 
 button {
-  width: 30%;
   height: 20px;
   margin: 0px 10px 10px 10px;
   border-radius: 5px;
@@ -177,7 +176,6 @@ button {
 }
 
 button:hover {
-  width: 32%;
   height: 22px;
   font-size: 0.8em;
 }
@@ -253,7 +251,13 @@ button:hover {
   font-size: 1.2em;
 }
 
-.fade-out {
+.not-allowed {
+  background-color: red;
+  cursor: initial;
+}
+.not-allowed:hover {
+  height: 20px;
+  font-size: 11px;
 }
 
 .removeprefect {
