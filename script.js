@@ -329,6 +329,11 @@ function start() {
 
     let removed = currentStudents.slice(index, index + 1);
     console.log(removed);
+
+    if (currentStudents[index].firstname === "Natalie") {
+      expellMe();
+    }
+
     removed.forEach(listOfExpelled);
     elm.parentElement.classList.add("remove");
     currentStudents.splice(index, 1);
@@ -507,6 +512,10 @@ function start() {
     student.imagelink = "anonymous.png";
 
     allStudents.push(student);
+  }
+
+  function expellMe() {
+    document.querySelector(".remove-all").className = "remove-list";
   }
 
   function studentsPrefect() {

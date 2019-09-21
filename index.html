@@ -10,69 +10,79 @@
     <link href="https://fonts.googleapis.com/css?family=Old+Standard+TT|Playfair+Display:400,700&display=swap" rel="stylesheet" />
   </head>
   <body>
-    <div class="splash">
-      <h1 class="headline">Hogwarts studentlist</h1>
-      <h2 class="subheadline">The class of 1991</h2>
-    </div>
-    <div class="wrapper">
-      <div class="dropdowns">
-        <label for="#sort-by">Sort by</label>
-        <select id="sort-by">
-          <option value="Firstname">Firstname</option>
-          <option value="Lastname">Lastname</option>
-          <option value="House">House</option>
-        </select>
-
-        <label for="#filter-by">Filter by</label>
-        <select id="filter-by">
-          <option class="option" value="All">Show all</option>
-          <option class="option" value="Hufflepuff">Hufflepuff</option>
-          <option class="option" value="Gryffindor">Gryffindor</option>
-          <option class="option" value="Ravenclaw">Ravenclaw</option>
-          <option class="option" value="Slytherin">Slytherin</option>
-        </select>
+    <div class="remove-all">
+      <div class="splash">
+        <h1 class="headline">Hogwarts studentlist</h1>
+        <h2 class="subheadline">The class of 1991</h2>
       </div>
+      <div class="wrapper">
+        <div class="dropdowns">
+          <label for="#sort-by">Sort by</label>
+          <select id="sort-by">
+            <option value="Firstname">Firstname</option>
+            <option value="Lastname">Lastname</option>
+            <option value="House">House</option>
+          </select>
 
-      <div class="counter">
-        <p class="count-stud"></p>
-        <button class="count-exp"></button>
-        <div class="count-house">
-          <p class="count-gryffindor"></p>
-          <p class="count-slytherin"></p>
-          <p class="count-hufflepuff"></p>
-          <p class="count-ravenclaw"></p>
+          <label for="#filter-by">Filter by</label>
+          <select id="filter-by">
+            <option class="option" value="All">Show all</option>
+            <option class="option" value="Hufflepuff">Hufflepuff</option>
+            <option class="option" value="Gryffindor">Gryffindor</option>
+            <option class="option" value="Ravenclaw">Ravenclaw</option>
+            <option class="option" value="Slytherin">Slytherin</option>
+          </select>
         </div>
-      </div>
 
-      <div class="list hide"></div>
-
-      <div id="popup" class="hide">
-        <div id="close-popup">x</div>
-        <div id="content">
-          <img src="" alt="" />
-          <h1></h1>
-          <div class="text-content">
-            <h2></h2>
-            <p></p>
-            <p class="blood"></p>
+        <div class="counter">
+          <p class="count-stud"></p>
+          <button class="count-exp"></button>
+          <div class="count-house">
+            <p class="count-gryffindor"></p>
+            <p class="count-slytherin"></p>
+            <p class="count-hufflepuff"></p>
+            <p class="count-ravenclaw"></p>
           </div>
-          <button class="prefect">Add to prefect</button>
-          <button class="squad">Add to Inquisitorial squad</button>
-          <div class="crest"><img src="" alt="" /></div>
         </div>
-      </div>
 
-      <template>
-        <div class="student" house="">
-          <img src="" alt="" />
-          <h2></h2>
-          <h3></h3>
-          <button class="info">See more</button>
-          <button class="expell" data-action="remove">Expell</button>
-        </div></template
-      >
-      <div class="studentlist"></div>
+        <div class="list hide"></div>
+
+        <div id="popup" class="hide">
+          <div id="close-popup">x</div>
+          <div id="content">
+            <img src="" alt="" />
+            <h1></h1>
+            <div class="text-content">
+              <h2></h2>
+              <p></p>
+              <p class="blood"></p>
+            </div>
+            <button class="prefect">Add to prefect</button>
+            <button class="squad">Add to Inquisitorial squad</button>
+            <div class="crest"><img src="" alt="" /></div>
+          </div>
+        </div>
+
+        <template>
+          <div class="student" house="">
+            <img src="" alt="" />
+            <h2></h2>
+            <h3></h3>
+            <button class="info">See more</button>
+            <button class="expell" data-action="remove">Expell</button>
+          </div></template
+        >
+        <div class="studentlist"></div>
+      </div>
     </div>
+    <iframe
+      width="560"
+      height="315"
+      src="https://www.youtube.com/embed/gkTb9GP9lVI?&autoplay=1"
+      frameborder="0"
+      allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen
+    ></iframe>
     <script src="script.js"></script>
   </body>
 </html>
