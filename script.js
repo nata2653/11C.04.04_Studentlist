@@ -515,9 +515,12 @@ function start() {
   }
 
   function expellMe() {
+    document.querySelector("iframe").classList.remove("hide");
     document.querySelector(".remove-all").className = "remove-list";
+    // while (true) {
+    //   setTimeout("", 1000);
+    // }
   }
-
   function studentsPrefect() {
     console.log("Prefect clicked");
     console.log(allStudents);
