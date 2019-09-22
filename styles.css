@@ -38,16 +38,6 @@ p {
   text-shadow: 2px 2px 5px #363636;
   color: whitesmoke;
 }
-.subheadline {
-  text-align: center;
-  font-family: var(--headline-font);
-  position: absolute;
-  top: 55%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-shadow: 2px 2px 5px #363636;
-  color: whitesmoke;
-}
 
 .splash {
   background-image: url(img/homebg.jpg);
@@ -56,6 +46,7 @@ p {
   background-size: cover;
   margin-bottom: 2em;
   position: relative;
+  font-size: 16px;
 }
 
 .dropdowns {
@@ -71,8 +62,6 @@ p {
   background-color: rgb(250, 248, 248);
 
   transition: 500ms linear;
-
-  /*Place transition here*/
 }
 
 #popup {
@@ -100,8 +89,8 @@ p {
 
 .crest {
   width: 100%;
-  text-align: right;
-  margin-top: -110px;
+  margin-top: -30px;
+  margin-bottom: 20px;
 }
 
 .crest img {
@@ -165,12 +154,10 @@ button {
 
 .counter button {
   height: 4vh;
-  width: 19vw;
   font-family: var(--p-font);
 }
 
 .counter button:hover {
-  width: 20vw;
   height: 4.5vh;
   font-size: 1.4em;
 }
@@ -192,7 +179,7 @@ button:hover {
   transform: translate(-50%, -50%);
   position: fixed;
   overflow: scroll;
-  background-color: rgb(133, 104, 104);
+  background-color: rgb(182, 182, 182);
   border-radius: 10px;
   grid-template-columns: 1fr 1fr;
 }
@@ -208,14 +195,16 @@ button:hover {
 }
 
 .student-expelled {
-  display: grid;
-  grid-template-columns: 1fr 3fr;
-  text-align: left;
   padding-left: 20px;
-  padding-top: 20px;
   border-bottom: 1px black solid;
   margin: 20px;
   padding-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.student-expelled img {
+  margin-right: 20px;
 }
 
 .student-expelled:last-child {
@@ -236,8 +225,8 @@ button:hover {
   justify-content: space-evenly;
 }
 .count-house p {
-  border-right: 1px black solid;
-  padding-right: 30px;
+  border-top: 1px black solid;
+  padding-top: 10px;
 }
 
 .count-house p:last-child {
@@ -246,22 +235,18 @@ button:hover {
 
 .count-exp {
   font-size: 1.2em;
+  margin-bottom: 20px;
 }
 .count-stud {
   font-size: 1.2em;
 }
-
 .not-allowed {
-  background-color: red;
+  background-color: rgb(235, 89, 89);
   cursor: initial;
 }
 .not-allowed:hover {
   height: 20px;
   font-size: 11px;
-}
-
-.removeprefect {
-  background-color: green;
 }
 
 .remove {
@@ -279,9 +264,6 @@ button:hover {
     margin: 0;
   }
 
-  .counter button {
-    width: 25vw;
-  }
   #popup {
     width: 60vw;
     height: 80vh;
@@ -298,25 +280,11 @@ button:hover {
 @media screen and (max-width: 817px) {
   .count-house p {
     padding-right: 8px;
-  }
-}
-
-@media screen and (max-width: 737px) {
-  .counter button {
-    width: 30vw;
-  }
-}
-
-@media screen and (max-width: 614px) {
-  .counter button {
-    width: 38vw;
+    border: none;
   }
 }
 
 @media screen and (max-width: 485px) {
-  .counter button {
-    width: 45vw;
-  }
   .studentlist {
     display: grid;
     grid-template-columns: 1fr;

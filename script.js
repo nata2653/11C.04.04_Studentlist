@@ -138,7 +138,7 @@ function start() {
 
   function create_UUID() {
     //Taken from https://www.w3resource.com/javascript-exercises/javascript-math-exercise-23.php
-
+    //Creates UUID
     var dt = new Date().getTime();
     var uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function(c) {
       var r = (dt + Math.random() * 16) % 16 | 0;
@@ -362,6 +362,7 @@ function start() {
       gender: "",
       house: "",
       imagelink: "",
+      bloodStatus: "",
       id: ""
     };
 
@@ -372,6 +373,7 @@ function start() {
     expelledStudent.gender = student.gender;
     expelledStudent.house = student.house;
     expelledStudent.imagelink = student.imagelink;
+    expellStudent.bloodStatus = student.bloodStatus;
     expelledStudent.id = student.id;
     // document.querySelector(".student").className = "fade-out";
 
@@ -389,7 +391,8 @@ function start() {
 
     expellStudent.forEach(expellStudent => {
       document.querySelector(".list").innerHTML += `<div class="student-expelled"> <img src="img/${expellStudent.imagelink}" alt=""> 
-      <div class="text"><h1>${expellStudent.firstname + " " + expellStudent.middlename + " " + expellStudent.lastname}</h1><h2>${expellStudent.house}</h2> <p>The student is expelled</p></div></div>`;
+      <div class="text"><h1>${expellStudent.firstname + " " + expellStudent.middlename + " " + expellStudent.lastname}</h1><h2>${expellStudent.house}</h2> <p>${expellStudent.gender}</p> 
+      <p>${expellStudent.bloodStatus}</p></div></div>`;
     });
 
     document.querySelector(".list").classList.remove("hide");
@@ -481,7 +484,7 @@ function start() {
     allStudents.forEach(student => {
       if (student.id == id && student.InqSquad == true) {
         student.InqSquad = false;
-        document.querySelector(".squad").textContent = "Add to squad";
+        document.querySelector(".squad").textContent = "Add to inquisitorial squad";
       }
     });
   }
@@ -510,6 +513,7 @@ function start() {
     student.gender = "Girl";
     student.id = create_UUID();
     student.imagelink = "anonymous.png";
+    student.house = "Hufflepuff";
 
     allStudents.push(student);
   }
@@ -517,9 +521,6 @@ function start() {
   function expellMe() {
     document.querySelector("iframe").classList.remove("hide");
     document.querySelector(".remove-all").className = "remove-list";
-    // while (true) {
-    //   setTimeout("", 1000);
-    // }
   }
   function studentsPrefect() {
     console.log("Prefect clicked");
@@ -530,9 +531,11 @@ function start() {
       if (student.id === id && student.prefect === "") {
         student.prefect = "prefect";
         document.querySelector(".prefect").textContent = "Remove student from prefect";
+        document.querySelector(".prefect-added").textContent = "Choosen as prefect";
       } else if (student.id === id && student.prefect === "prefect") {
         student.prefect = "";
         document.querySelector(".prefect").textContent = "Make student prefect";
+        document.querySelector(".prefect-added").textContent = "";
       }
     });
   }
@@ -542,7 +545,6 @@ function start() {
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").textContent = "Too many prefects from this house";
       document.querySelector(".prefect").className = "not-allowed";
     }
   }
@@ -551,7 +553,6 @@ function start() {
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").textContent = "Too many prefects from this house";
       document.querySelector(".prefect").className = "not-allowed";
     }
   }
@@ -560,7 +561,6 @@ function start() {
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").textContent = "Too many prefects from this house";
       document.querySelector(".prefect").className = "not-allowed";
     }
   }
@@ -569,7 +569,6 @@ function start() {
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").textContent = "Too many prefects from this house";
       document.querySelector(".prefect").className = "not-allowed";
     }
   }
