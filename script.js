@@ -198,7 +198,7 @@ function start() {
       info.addEventListener("click", showModal);
     });
   }
-
+  //Make showModal function
   function showModal(student) {
     console.log("Show modal");
 
@@ -206,6 +206,7 @@ function start() {
     let id = event.target.dataset.info;
     console.log(id);
 
+    //If-statement - add data in showModal
     currentStudents.forEach(student => {
       if (student.id == id) {
         document.querySelector("#popup").classList.remove("hide");
@@ -219,6 +220,7 @@ function start() {
         document.querySelector(".squad").dataset.id = student.id;
         document.querySelector(".prefect").dataset.id = student.id;
 
+        //If-statement for prefect
         if (student.prefect === "prefect") {
           document.querySelector(".prefect").addEventListener("click", studentsPrefect);
         } else {
@@ -226,6 +228,7 @@ function start() {
           document.querySelector(".prefect").textContent = "Make student prefect";
         }
 
+        //Make if-statement to different houses
         if (student.house === "Gryffindor") {
           document.querySelector("#popup").className = "gryffindor";
           document.querySelector("#popup .crest img").src = "img/gryffindorcrest.png";
@@ -243,9 +246,10 @@ function start() {
           document.querySelector("#popup .crest img").src = "img/ravenclawcrest.png";
           prefectRavenclaw(student);
         }
-
+        //Call hideModal
         document.querySelector("#close-popup").addEventListener("click", hideModal);
 
+        //Make function to hide modal
         function hideModal() {
           console.log("hide modal");
           document.querySelector("#popup").classList.add("hide");
@@ -306,12 +310,12 @@ function start() {
   function expelStudents(event) {
     console.log("Expell clicked");
 
-    // const elm = event.target;
     let elm = event.target;
     let id;
     let index;
     let index2;
 
+    //Make if-statement to find index
     if (elm.dataset.action == "remove") {
       console.log("remove");
       id = elm.dataset.id;
@@ -436,7 +440,7 @@ function start() {
       });
     });
   }
-
+  //Make function to pureblood
   function getPureBlood(pureBlood) {
     let pure;
 
@@ -505,6 +509,7 @@ function start() {
     });
   }
 
+  //Make function to add me in studentlist
   function newStudentHacked() {
     const student = Object.create(Student);
 
@@ -522,30 +527,31 @@ function start() {
     document.querySelector("iframe").classList.remove("hide");
     document.querySelector(".remove-all").className = "remove-list";
   }
+
+  //Make function to prefect
   function studentsPrefect() {
     console.log("Prefect clicked");
     console.log(allStudents);
     const id = this.dataset.id;
 
+    //Make if-statement to make student prefect
     allStudents.forEach(student => {
       if (student.id === id && student.prefect === "") {
         student.prefect = "prefect";
         document.querySelector(".prefect").textContent = "Remove student from prefect";
-        document.querySelector(".prefect-added").textContent = "Choosen as prefect";
       } else if (student.id === id && student.prefect === "prefect") {
         student.prefect = "";
         document.querySelector(".prefect").textContent = "Make student prefect";
-        document.querySelector(".prefect-added").textContent = "";
       }
     });
   }
 
+  //Make functions for the 4 houses to prefect, so they can only add 2
   function prefectGryffindor(student) {
     const prefect = gryffindor.filter(obj => obj.prefect.includes("prefect"));
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").className = "not-allowed";
     }
   }
   function prefectHufflepuff(student) {
@@ -553,7 +559,6 @@ function start() {
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").className = "not-allowed";
     }
   }
   function prefectSlytherin(student) {
@@ -561,7 +566,6 @@ function start() {
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").className = "not-allowed";
     }
   }
   function prefectRavenclaw(student) {
@@ -569,7 +573,6 @@ function start() {
     console.log(prefect.length === 2);
     if (student.prefect === "" && prefect.length === 2) {
       document.querySelector(".prefect").removeEventListener("click", studentsPrefect);
-      document.querySelector(".prefect").className = "not-allowed";
     }
   }
 }
